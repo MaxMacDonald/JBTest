@@ -1,5 +1,6 @@
 ﻿using CodeStack.SwEx.AddIn;
 using CodeStack.SwEx.AddIn.Attributes;
+using CodeStack.SwEx.PMPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,24 @@ namespace HelloWorld1
             HelloWorld
         }
 
+        PropertyManagerPageEx<PropertyPageHandeler, DMHelloWorld> m_HelloWorldPage;
+
+        DMHelloWorld m_HelloWorldData;
+
+
         public override bool OnConnect()
         {
             AddCommandGroup<Commands_e>(OnButtonClick);
+            m_HelloWorldData = new DMHelloWorld();
+            m_HelloWorldData.message = 4;
+            m_HelloWorldPage = new PropertyManagerPageEx<PropertyPageHandeler, DMHelloWorld>(App);
+            m_HelloWorldPage.Handler.Closed += OnHelloWorldClosed;
             return true;
+        }
+
+        private void OnHelloWorldClosed(SolidWorks.Interop.swconst.swPropertyManagerPageCloseReasons_e reason)
+        {
+            App.SendMsgToUser($"{m_HelloWorldData.message}");
         }
 
         private void OnButtonClick(Commands_e cmd)
@@ -29,7 +44,8 @@ namespace HelloWorld1
             switch (cmd)
             {
                 case Commands_e.HelloWorld:
-                    App.SendMsgToUser("Hello Worlds!");
+                    m_HelloWorldPage.Show(m_HelloWorldData);
+                    //App.SendMsgToUser("Hello Worlds!");
                     break;
             }
         }

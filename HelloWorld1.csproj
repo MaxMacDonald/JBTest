@@ -71,8 +71,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DMHelloWorld.cs" />
     <Compile Include="MyAddIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyPageHandeler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
