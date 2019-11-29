@@ -29,7 +29,7 @@ namespace HelloWorld1
             switch (cmd)
             {
                 case Commands_e.HelloWorld:
-                    App.SendMsgToUser("Hello World!");
+                    App.SendMsgToUser("Hello Worlds!");
                     break;
             }
         }
