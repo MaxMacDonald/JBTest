@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DMCreateBody.cs" />
     <Compile Include="DMHelloWorld.cs" />
     <Compile Include="MyAddIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

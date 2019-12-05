@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HelloWorld1
 {
-    //The HelloWorld Data Model
-    public class DMHelloWorld
+    class DMCreateBody
     {
-        public string message { get; set; }
+        public double Diameter { get; set; }
+        public double Thickness { get; set; }
     }
 }
