@@ -71,14 +71,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DMCreateBody.cs" />
-    <Compile Include="DMHelloWorld.cs" />
+    <Compile Include="CreateBody\CreateBodyFeatureData.cs" />
+    <Compile Include="CreateBody\CreateBodyMacroFeature.cs" />
+    <Compile Include="CreateBody\CreateBodyPageData.cs" />
+    <Compile Include="CreateBody\CreateBodyPMP.cs" />
+    <Compile Include="CreateBody\DMCreateBody.cs" />
+    <Compile Include="HelloWorld\DMHelloWorld.cs" />
     <Compile Include="MyAddIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyPageHandeler.cs" />
+    <Compile Include="HelloWorld\PropertyPageHandeler.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

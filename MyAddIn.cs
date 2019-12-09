@@ -1,6 +1,9 @@
 ﻿using CodeStack.SwEx.AddIn;
 using CodeStack.SwEx.AddIn.Attributes;
+using CodeStack.SwEx.Common.Attributes;
 using CodeStack.SwEx.PMPage;
+using HelloWorld1.CreateBody;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -15,14 +18,19 @@ namespace HelloWorld1
     [AutoRegister("Geom primatives", "Hello World")]
     public class MyAddIn : SwAddInEx
     {
+        # region Commands
+        [Title("Max's Macros")]
         private enum Commands_e
         {
+            [Title("Text to popup")]
             HelloWorld,
+            [Title("Create Body")]
             CreateBody
         }
+        #endregion
 
         PropertyManagerPageEx<PropertyPageHandeler, DMHelloWorld> m_HelloWorldPage;
-        PropertyManagerPageEx<PropertyPageHandeler, DMCreateBody> m_CreateBodyPage;
+        PropertyManagerPageEx<CreateBodyPMP,DMCreateBody> m_CreateBodyPage;
 
         DMHelloWorld m_HelloWorldData;
         DMCreateBody m_CreateBodyData;
@@ -37,19 +45,20 @@ namespace HelloWorld1
             m_HelloWorldPage.Handler.Closed += OnHelloWorldClosed;
 
             m_CreateBodyData = new DMCreateBody();
-            m_CreateBodyPage = new PropertyManagerPageEx<PropertyPageHandeler, DMCreateBody>(App);
+            m_CreateBodyPage = new PropertyManagerPageEx<CreateBodyPMP, DMCreateBody>(App);
             m_CreateBodyPage.Handler.Closed += OnCreateBodyClosed;
             return true;
         }
 
-        private void OnCreateBodyClosed(swPropertyManagerPageCloseReasons_e reason)
-        {
+        private void OnCreateBodyClosed(swPropertyManagerPageCloseReasons_e reason) 
+                                                       {
             
         }
 
         private void OnHelloWorldClosed(SolidWorks.Interop.swconst.swPropertyManagerPageCloseReasons_e reason)
         {
             App.SendMsgToUser($"{m_HelloWorldData.message}");
+
         }
 
         private void OnButtonClick(Commands_e cmd)
@@ -67,7 +76,11 @@ namespace HelloWorld1
                     break;
             }
         }
-        
+        private void CreateCylinder(double diam, double height)
+        {
+
+        }
+
     }
 }
 
