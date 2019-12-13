@@ -51,8 +51,8 @@ namespace HelloWorld1
         }
 
         private void OnCreateBodyClosed(swPropertyManagerPageCloseReasons_e reason) 
-                                                       {
-            
+        {
+            MacroCreateBody();
         }
 
         private void OnHelloWorldClosed(SolidWorks.Interop.swconst.swPropertyManagerPageCloseReasons_e reason)
@@ -71,14 +71,10 @@ namespace HelloWorld1
                     break;
 
                 case Commands_e.CreateBody:
-                    m_CreateBodyPage.Show(m_CreateBodyData);
+                    m_CreateBodyPage.Show(m_CreateBodyData); //The Create Bodies pmp is shown to the user for data to be input
   
                     break;
             }
-        }
-        private void CreateCylinder(double diam, double height)
-        {
-
         }
 
     }
