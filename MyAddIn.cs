@@ -34,13 +34,14 @@ namespace HelloWorld1
 
         DMHelloWorld m_HelloWorldData;
         DMCreateBody m_CreateBodyData;
+     
 
 
         public override bool OnConnect()
         {
             AddCommandGroup<Commands_e>(OnButtonClick);
             m_HelloWorldData = new DMHelloWorld();
-            m_HelloWorldData.message = "Hi";
+            m_HelloWorldData.Message = "Hi"; //sets a default value for the data 
             m_HelloWorldPage = new PropertyManagerPageEx<PropertyPageHandeler, DMHelloWorld>(App);
             m_HelloWorldPage.Handler.Closed += OnHelloWorldClosed;
 
@@ -52,12 +53,39 @@ namespace HelloWorld1
 
         private void OnCreateBodyClosed(swPropertyManagerPageCloseReasons_e reason) 
         {
-            MacroCreateBody();
+            MacroCreateBody newBody = new MacroCreateBody(m_CreateBodyData);
+            newBody.sizeX = m_CreateBodyData.X;
+            newBody.sizeY = m_CreateBodyData.Y;
+            newBody.sizeZ = m_CreateBodyData.Z;
+            List<IBody2> HelixContainer;
+            if (m_CreateBodyData.Helix == true)
+            {
+                //Make a helix with the data
+                //To do this make 10 copies of the body and move each one 1 length along and rotate 36 degrees (360/10)
+                //Make original body then copy and transform it.
+                // the 
+
+                HelixContainer = newBody.CreateBodies(App);
+                foreach (IBody2 helix in HelixContainer){
+                    helix.ApplyTransform();
+                    helix.Display3(App.IActiveDoc2, 100, 1);
+
+                }
+            }
+            else
+            {
+                newBody.CreateBodies(App)[0].Display3(App.IActiveDoc2, 100, 1);
+            }
+           
+           
+            
+
+            
         }
 
         private void OnHelloWorldClosed(SolidWorks.Interop.swconst.swPropertyManagerPageCloseReasons_e reason)
         {
-            App.SendMsgToUser($"{m_HelloWorldData.message}");
+            App.SendMsgToUser($"{m_HelloWorldData.Message}");
 
         }
 

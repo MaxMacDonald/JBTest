@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloWorld1
+namespace HelloWorld1.CreateBody
 {
-    //The HelloWorld Data Model
-    public class DMHelloWorld
+    class BoxHelix
     {
-        public string Message { get; set; }
+        BoxHelix() { }
+
+        
     }
 }

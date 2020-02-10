@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateBody\TransformBody.cs" />
     <Compile Include="CreateBody\MacroCreateBody.cs" />
     <Compile Include="CreateBody\CreateBodyFeatureData.cs" />
     <Compile Include="CreateBody\CreateBodyMacroFeature.cs" />
@@ -86,6 +87,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="Useful Snippits\MathUtilEx.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

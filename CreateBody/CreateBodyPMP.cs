@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace HelloWorld1.CreateBody
 {
     [ComVisible(true)]
-    class CreateBodyPMP : PropertyManagerPageHandlerEx
+    public class CreateBodyPMP : PropertyManagerPageHandlerEx
     {
     }
 }
