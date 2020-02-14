@@ -46,6 +46,9 @@ namespace HelloWorld1
             m_HelloWorldPage.Handler.Closed += OnHelloWorldClosed;
 
             m_CreateBodyData = new DMCreateBody();
+            m_CreateBodyData.X = 0.05;
+            m_CreateBodyData.Y = 0.05;
+            m_CreateBodyData.Z = 0.05;
             m_CreateBodyPage = new PropertyManagerPageEx<CreateBodyPMP, DMCreateBody>(App);
             m_CreateBodyPage.Handler.Closed += OnCreateBodyClosed;
             return true;
@@ -63,12 +66,21 @@ namespace HelloWorld1
                 //Make a helix with the data
                 //To do this make 10 copies of the body and move each one 1 length along and rotate 36 degrees (360/10)
                 //Make original body then copy and transform it.
-                // the 
-
+                
+                var mathUtil = App.IGetMathUtility();
                 HelixContainer = newBody.CreateBodies(App);
-                foreach (IBody2 helix in HelixContainer){
-                    helix.ApplyTransform();
-                    helix.Display3(App.IActiveDoc2, 100, 1);
+                double[] vectorN = new double[] { 1, 0, 0 };
+                double[] pointN = new double[] { 0, 0, 0 };
+                for (int i = 0; i <10; i++){
+                    double Rotation = 36 * (i+1);
+                    var vector = mathUtil.CreateVector(vectorN);
+                    var point = mathUtil.CreatePoint(pointN);
+                    MathTransform rotation = (MathTransform)mathUtil.CreateTransformRotateAxis(point, vector, Rotation);
+
+
+
+                    HelixContainer[i].ApplyTransform(rotation);
+                    HelixContainer[i].Display3(App.IActiveDoc2, 100, 1);
 
                 }
             }

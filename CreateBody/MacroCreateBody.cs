@@ -30,7 +30,6 @@ namespace HelloWorld1.CreateBody
                 for (int i = 0; i < 10; i++)
                 {
                     double Xstart = sizeX * i;
-                    double Rotation = 36 * i;
                     resBodies.Add(modeler.CreateBodyFromBox3(new double[] { Xstart, 0d, 0d, 1d, 0d, 0d, sizeX, sizeY, sizeZ }));
                     
                 }

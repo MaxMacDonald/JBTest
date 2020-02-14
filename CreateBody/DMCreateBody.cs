@@ -13,20 +13,21 @@ namespace HelloWorld1
     {
         [ControlAttribution(swControlBitmapLabelType_e.swBitmapLabel_LinearDistance)]
         [Description("Size")]
-        [NumberBoxOptions(units:swNumberboxUnitType_e.swNumberBox_Length, minimum: 0.0001, maximum:10, inclusive: true, increment: 1, fastIncrement: 0.001, slowIncrement: 0.001)]
+        [NumberBoxOptions(units:swNumberboxUnitType_e.swNumberBox_Length, minimum: 0.0001, maximum:1, inclusive: true, increment: 1, fastIncrement: 0.001, slowIncrement: 0.001)]
         public double X { get; set; }
 
 
         [ControlAttribution(swControlBitmapLabelType_e.swBitmapLabel_LinearDistance)]
         [Description("Size")]
-        [NumberBoxOptions(units: swNumberboxUnitType_e.swNumberBox_Length, minimum: 0.0001, maximum: 10, inclusive: true, increment: 1, fastIncrement: 0.001, slowIncrement: 0.001)]
+        [NumberBoxOptions(units: swNumberboxUnitType_e.swNumberBox_Length, minimum: 0.0001, maximum: 1, inclusive: true, increment: 1, fastIncrement: 0.001, slowIncrement: 0.001)]
         public double Y { get; set; }
 
 
         [ControlAttribution(swControlBitmapLabelType_e.swBitmapLabel_LinearDistance)]
         [Description("Size")]
-        [NumberBoxOptions(units: swNumberboxUnitType_e.swNumberBox_Length, minimum: 0.0001, maximum: 10, inclusive: true, increment: 1, fastIncrement: 0.001, slowIncrement: 0.001)]
+        [NumberBoxOptions(units: swNumberboxUnitType_e.swNumberBox_Length, minimum: 0.0001, maximum: 1, inclusive: true, increment: 1, fastIncrement: 0.001, slowIncrement: 0.001)]
         public double Z { get; set; }
+        
 
         [Description("Helix")]
         public bool Helix { get; set; }
