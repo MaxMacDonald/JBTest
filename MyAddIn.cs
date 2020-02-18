@@ -80,7 +80,8 @@ namespace HelloWorld1
 
 
                     HelixContainer[i].ApplyTransform(rotation);
-                    HelixContainer[i].Display3(App.IActiveDoc2, 100, 1);
+                    //HelixContainer[i].Display3(App.IActiveDoc2, 100, 1);
+                    HelixContainer[i].CreateBaseFeature(HelixContainer[i]);
 
                 }
             }
