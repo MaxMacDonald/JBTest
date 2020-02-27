@@ -13,12 +13,14 @@ namespace HelloWorld1.CreateBody
         public double sizeY;
         public double sizeZ;
         public bool helix;
+        public List<IBody2> tempBodyList;
         public MacroCreateBody(DMCreateBody Data){
 
             sizeX = Data.X;
             sizeY = Data.Y;
             sizeZ = Data.Z;
             helix = Data.Helix;
+            
         }
 
         public List<IBody2> CreateBodies(ISldWorks app)
