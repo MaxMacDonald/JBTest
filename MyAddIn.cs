@@ -29,7 +29,7 @@ namespace HelloWorld1
         }
         #endregion
         public SldWorks swApp;
-        ModelDoc2 swModel;
+
         
        
 
@@ -58,92 +58,21 @@ namespace HelloWorld1
             m_CreateBodyPage = new PropertyManagerPageEx<CreateBodyPMP, DMCreateBody>(App);
             m_CreateBodyPage.Handler.Closed += OnCreateBodyClosed;
             m_CreateBodyPage.Handler.DataChanged += OnDataChanged;
-            MacroCreateBody tempBodyHolder = new MacroCreateBody(m_CreateBodyData);
+            MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
+            bodies.CreateBodies(App, true);
             return true;
         }
 
         private void OnDataChanged()
         {
-            //swModel = (ModelDoc2)swApp.ActiveDoc;
-            //swModel.Rebuild((int)swRebuildOptions_e.swRebuildAll);
-            MacroCreateBody newBody = new MacroCreateBody(m_CreateBodyData);
-            newBody.sizeX = m_CreateBodyData.X;
-            newBody.sizeY = m_CreateBodyData.Y;
-            newBody.sizeZ = m_CreateBodyData.Z;
-            List<IBody2> HelixContainer;
-            if (m_CreateBodyData.Helix == true)
-            {
-                //Make a helix with the data
-                //To do this make 10 copies of the body and move each one 1 length along and rotate 36 degrees (360/10)
-                //Make original body then copy and transform it.
-
-                var mathUtil = App.IGetMathUtility();
-                HelixContainer = newBody.CreateBodies(App);
-                double[] vectorN = new double[] { 1, 0, 0 };
-                double[] pointN = new double[] { 0, 0, 0 };
-                for (int i = 0; i < 10; i++)
-                {
-                    double Rotation = 36 * (i + 1);
-                    var vector = mathUtil.CreateVector(vectorN);
-                    var point = mathUtil.CreatePoint(pointN);
-                    MathTransform rotation = (MathTransform)mathUtil.CreateTransformRotateAxis(point, vector, Rotation);
-
-
-
-                    HelixContainer[i].ApplyTransform(rotation);
-                    HelixContainer[i].Display3(App.IActiveDoc2, 100, 1);
-                    
-
-                }
-            }
-            else
-            {
-                newBody.CreateBodies(App)[0].Display3(App.IActiveDoc2, 100, 1);
-            }
-
-
+            MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
+            bodies.CreateBodies(App, true);
         }
 
         private void OnCreateBodyClosed(swPropertyManagerPageCloseReasons_e reason) 
         {
-            MacroCreateBody newBody = new MacroCreateBody(m_CreateBodyData);
-            newBody.sizeX = m_CreateBodyData.X;
-            newBody.sizeY = m_CreateBodyData.Y;
-            newBody.sizeZ = m_CreateBodyData.Z;
-            List<IBody2> HelixContainer;
-            if (m_CreateBodyData.Helix == true)
-            {
-                //Make a helix with the data
-                //To do this make 10 copies of the body and move each one 1 length along and rotate 36 degrees (360/10)
-                //Make original body then copy and transform it.
-                
-                var mathUtil = App.IGetMathUtility();
-                HelixContainer = newBody.CreateBodies(App);
-                double[] vectorN = new double[] { 1, 0, 0 };
-                double[] pointN = new double[] { 0, 0, 0 };
-                for (int i = 0; i <10; i++){
-                    double Rotation = 36 * (i+1);
-                    var vector = mathUtil.CreateVector(vectorN);
-                    var point = mathUtil.CreatePoint(pointN);
-                    MathTransform rotation = (MathTransform)mathUtil.CreateTransformRotateAxis(point, vector, Rotation);
-
-
-
-                    HelixContainer[i].ApplyTransform(rotation);
-                    //HelixContainer[i].Display3(App.IActiveDoc2, 100, 1);
-                    HelixContainer[i].CreateBaseFeature(HelixContainer[i]);
-
-                }
-            }
-            else
-            {
-                newBody.CreateBodies(App)[0].CreateBaseFeature(newBody);
-            }
-           
-           
-            
-
-            
+            MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
+            bodies.CreateBodies(App, false);
         }
 
         private void OnHelloWorldClosed(SolidWorks.Interop.swconst.swPropertyManagerPageCloseReasons_e reason)
