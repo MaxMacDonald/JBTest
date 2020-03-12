@@ -40,6 +40,7 @@ namespace HelloWorld1
 
         DMHelloWorld m_HelloWorldData;
         DMCreateBody m_CreateBodyData;
+        List<IBody2> bodyStore;
      
 
 
@@ -58,15 +59,16 @@ namespace HelloWorld1
             m_CreateBodyPage = new PropertyManagerPageEx<CreateBodyPMP, DMCreateBody>(App);
             m_CreateBodyPage.Handler.Closed += OnCreateBodyClosed;
             m_CreateBodyPage.Handler.DataChanged += OnDataChanged;
-            MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
-            bodies.CreateBodies(App, true);
             return true;
         }
 
         private void OnDataChanged()
         {
             MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
-            bodies.CreateBodies(App, true);
+            foreach (IBody2 body in bodyStore){
+                body.HideBody(true);
+            }
+            bodyStore = bodies.CreateBodies(App, true);
         }
 
         private void OnCreateBodyClosed(swPropertyManagerPageCloseReasons_e reason) 
@@ -92,7 +94,10 @@ namespace HelloWorld1
 
                 case Commands_e.CreateBody:
                     m_CreateBodyPage.Show(m_CreateBodyData); //The Create Bodies pmp is shown to the user for data to be input
-  
+                    MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
+                    bodies.CreateBodies(App, true);
+                    bodyStore = bodies.CreateBodies(App, true);
+
                     break;
             }
         }

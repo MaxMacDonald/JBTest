@@ -29,7 +29,7 @@ namespace HelloWorld1.CreateBody
             
         }
 
-        public bool CreateBodies(ISldWorks app, bool temp)
+        public List<IBody2> CreateBodies(ISldWorks app, bool temp)
         {
             var resBodies = new List<IBody2>();
             var modeler = app.GetModeler() as Modeler;
@@ -79,7 +79,7 @@ namespace HelloWorld1.CreateBody
                 }
 
             }
-            return true;
+            return resBodies;
 
         }
 
