@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace HelloWorld1
 {
@@ -29,9 +30,11 @@ namespace HelloWorld1
         }
         #endregion
         public SldWorks swApp;
+        public ModelDoc2 part;
+      
 
-        
-       
+
+
 
 
 
@@ -40,6 +43,7 @@ namespace HelloWorld1
 
         DMHelloWorld m_HelloWorldData;
         DMCreateBody m_CreateBodyData;
+        List<IBody2> bodyStore;
      
 
 
@@ -58,21 +62,30 @@ namespace HelloWorld1
             m_CreateBodyPage = new PropertyManagerPageEx<CreateBodyPMP, DMCreateBody>(App);
             m_CreateBodyPage.Handler.Closed += OnCreateBodyClosed;
             m_CreateBodyPage.Handler.DataChanged += OnDataChanged;
-            MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
-            bodies.CreateBodies(App, true);
             return true;
         }
 
         private void OnDataChanged()
         {
             MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
-            bodies.CreateBodies(App, true);
+            foreach (IBody2 body in bodyStore){
+                body.Hide(true);
+            }
+            bodyStore = bodies.CreateBodies(App, true);
+            part = (ModelDoc2)App.ActiveDoc;
+            part.Extension.Rebuild((int)swRebuildOptions_e.swForceRebuildAll);
         }
 
         private void OnCreateBodyClosed(swPropertyManagerPageCloseReasons_e reason) 
         {
             MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
+            foreach (IBody2 body in bodyStore)
+            {
+                body.Hide(true);
+            }
             bodies.CreateBodies(App, false);
+            part = (ModelDoc2)App.ActiveDoc;
+            part.Extension.Rebuild((int)swRebuildOptions_e.swForceRebuildAll);
         }
 
         private void OnHelloWorldClosed(SolidWorks.Interop.swconst.swPropertyManagerPageCloseReasons_e reason)
@@ -92,7 +105,9 @@ namespace HelloWorld1
 
                 case Commands_e.CreateBody:
                     m_CreateBodyPage.Show(m_CreateBodyData); //The Create Bodies pmp is shown to the user for data to be input
-  
+                    MacroCreateBody bodies = new MacroCreateBody(m_CreateBodyData);
+                    bodyStore = bodies.CreateBodies(App, true);
+
                     break;
             }
         }
